@@ -6,7 +6,7 @@ import argparse
 from pathlib import Path
 
 def get_mjai_log(tenhou_id):
-    cmd = "akochan-reviewer/target/debug/akochan-reviewer --no-review --tenhou-id " + tenhou_id + " --mjai-out -"
+    cmd = "akochan-reviewer/target/debug/mjai-reviewer --no-review --tenhou-id " + tenhou_id + " --mjai-out -"
     try:
         output = subprocess.check_output(cmd.split())
         return output.decode('utf-8').rstrip()
@@ -41,7 +41,7 @@ def proc_gz(gz_path):
         mjai_log = get_mjai_log(tenhou_id)
         if mjai_log == "failure":
             continue
-        with open(outfile_pathstr, "w") as f:
+        with open(outfile_pathstr, "w", encoding='utf-8') as f:
             f.write(mjai_log)
 
 def proc_year(year):
